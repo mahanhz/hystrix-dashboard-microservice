@@ -10,7 +10,7 @@
          See TCP Appenders https://github.com/logstash/logstash-logback-encoder -->
     <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook" />
 
-    <property name="logFileName" value="facilitated-activity-microservice" />
+    <property name="logFileName" value="hystrix-dashboard-microservice" />
     <property name="productionProfile" value="production" />
 
     <if condition='"${spring.profiles.active}".contains("${productionProfile}")'>
