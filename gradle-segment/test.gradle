@@ -1,0 +1,15 @@
+def integrationTests = 'com/amhzing/hystrixdashboard/integrationtest/**'
+def smokeTests = 'com/amhzing/hystrixdashboard/smoketest/**'
+
+test {
+    exclude integrationTests
+    exclude smokeTests
+}
+
+task integrationTest(type:Test) {
+    include integrationTests
+}
+
+task smokeTest(type:Test) {
+    include smokeTests
+}
