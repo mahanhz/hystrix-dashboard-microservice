@@ -1,7 +1,7 @@
-group = 'com.amhzing.hsytrixdashboard'
+group = 'com.amhzing.hystrixdashboard'
 
 jar {
-	baseName = 'hsytrix-dashboard-microservice'
+	baseName = 'hystrix-dashboard-microservice'
 
 	// Do not include environment specific properties in the built jar
 	exclude 'application-*'
