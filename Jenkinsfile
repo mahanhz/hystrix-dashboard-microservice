@@ -21,8 +21,6 @@ stage ('Build') {
         gradle 'clean test assemble'
 
         stash excludes: 'build/', includes: '**', name: 'source'
-        stash includes: 'build/jacoco/*.exec', name: 'unitCodeCoverage'
-        // step([$class: 'JUnitResultArchiver', testResults: '**/build/test-results/*.xml'])
 
         // Obtaining commit id like this until JENKINS-26100 is implemented
         // See http://stackoverflow.com/questions/36304208/jenkins-workflow-checkout-accessing-branch-name-and-git-commit
@@ -42,22 +40,6 @@ if (!isMasterBranch()) {
             unstash 'source'
             sh 'chmod 755 gradlew'
             sh 'SPRING_PROFILES_ACTIVE=online,test ./gradlew integrationTest'
-
-            stash includes: 'build/jacoco/*.exec', name: 'integrationCodeCoverage'
-        }
-    }
-
-    stage ('Code coverage') {
-        node {
-            unstash 'source'
-            unstash 'unitCodeCoverage'
-            unstash 'integrationCodeCoverage'
-
-            sh 'chmod 755 gradlew'
-            gradle 'jacocoTestReport'
-
-            publishHTML(target: [reportDir:'build/reports/jacoco/test/html', reportFiles: 'index.html', reportName: 'Code Coverage'])
-            // step([$class: 'JacocoPublisher', execPattern:'build/jacoco/*.exec', classPattern: 'build/classes/main', sourcePattern: 'src/main/java'])
         }
     }
 

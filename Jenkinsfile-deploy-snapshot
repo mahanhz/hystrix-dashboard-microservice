@@ -25,7 +25,7 @@ stage ('Health check') {
             unstash 'source'
             sh 'chmod 755 gradlew'
 
-            sh 'SPRING_PROFILES_ACTIVE=test ./gradlew smokeTest'
+            sh 'SPRING_PROFILES_ACTIVE=test,testServer ./gradlew smokeTest'
         }
     }
 }
