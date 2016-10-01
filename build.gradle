@@ -5,8 +5,7 @@ buildscript {
 		springBootVersion = '1.4.1.RELEASE'
 		sshVersion = '2.2.0'
 		gradleReleaseVersion = '2.4.0'
-		gradleOwaspVersion = '1.4.3'
-		queryDslPluginVersion = '1.0.7'
+		gradleGitPropertiesVersion = '1.4.17'
 	}
 
 	repositories {
@@ -21,6 +20,7 @@ buildscript {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath("org.hidetake:gradle-ssh-plugin:${sshVersion}")
 		classpath("net.researchgate:gradle-release:${gradleReleaseVersion}")
+		classpath("gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:${gradleGitPropertiesVersion}")
 	}
 }
 
@@ -30,6 +30,7 @@ apply plugin: 'spring-boot'
 apply plugin: 'org.hidetake.ssh'
 apply plugin: 'net.researchgate.release'
 apply plugin: 'idea'
+apply plugin: 'com.gorylenko.gradle-git-properties'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -49,6 +50,12 @@ apply from: 'gradle-segment/publish.gradle'
 
 // Deploy
 apply from: 'gradle-segment/deploy.gradle'
+
+// Git properties that display in the actuator /info endpoint
+gitProperties {
+	dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ z"
+	dateFormatTimeZone = "UTC"
+}
 
 // Create a fully executable jar
 springBoot {
